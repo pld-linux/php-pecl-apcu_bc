@@ -18,6 +18,7 @@ BuildRequires:	%{php_name}-devel >= 4:7.0.0
 BuildRequires:	%{php_name}-pecl-apcu-devel
 BuildRequires:	rpmbuild(macros) >= 1.666
 %if %{with tests}
+BuildRequires:	%{php_name}-pcre
 BuildRequires:	%{php_name}-pecl-apcu
 %endif
 %{?requires_php_extension}
@@ -38,7 +39,7 @@ cat <<'EOF' > run-tests.sh
 export NO_INTERACTION=1 REPORT_EXIT_STATUS=1 MALLOC_CHECK_=2
 exec %{__make} test \
 	PHP_EXECUTABLE=%{__php} \
-	PHP_TEST_SHARED_SYSTEM_EXTENSIONS="apcu" \
+	PHP_TEST_SHARED_SYSTEM_EXTENSIONS="pcre apcu" \
 	RUN_TESTS_SETTINGS="-q $*"
 EOF
 chmod +x run-tests.sh
